@@ -7,8 +7,8 @@ from heapq import heappop, heappush
 
 contents_dir = './contents'
 mirror_url = "http://ftp.uk.debian.org/debian/dists/stable/main/"
-architectures = set(['amd64', 'arm64', 'armel', 'armhf',
-                    'i386', 'mips64el', 'mipsel', ''])
+architectures_set = set(['amd64', 'arm64', 'armel', 'armhf',
+                         'i386', 'mips64el', 'mipsel', 'ppc64el', 's390x'])
 
 
 class Package_Frequency:
@@ -23,6 +23,9 @@ class Package_Frequency:
 
 
 def download_content(architecture):
+    if architecture not in architectures_set:
+        print("Error: %s is not a valid architecture." % architecture)
+        return None
     content_name = 'Contents-%s' % (architecture)
     content_path = os.path.join(contents_dir, content_name)
     if os.path.exists(content_path):
