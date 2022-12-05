@@ -3,7 +3,7 @@ import sys
 import urllib.request
 import gzip
 from collections import defaultdict
-from heapq import heappop, heappush
+from heapq import heappop, heappush, nlargest
 
 contents_dir = './contents'  # The dictionary stores the Contents indices files
 # Url of the Debian mirror
@@ -92,16 +92,9 @@ def print_top_package(pkg_freq, size=10):
     param pkg_freq: dict, the hashmap of the number of assocaited files of each package
     param size: the number of the top packages to be printed
     '''
-    top_pkg_heap = []   # we use heap to store the top <size> packages
-    for pkg_name, freq in pkg_freq.items():
-        heappush(top_pkg_heap, Package_Frequency(pkg_name, freq))
-        if len(top_pkg_heap) > size:    # fixed the size of the heap
-            heappop(top_pkg_heap)
-    ans = []
-    while top_pkg_heap:
-        # record the packages in the final heap
-        ans.append(heappop(top_pkg_heap))
-    for i in range(len(ans)-1, -1, -1):
+    ans = nlargest(size, [Package_Frequency(pkg_name, freq)
+                   for pkg_name, freq in pkg_freq.items()])  # Use heap to get the top <size> files
+    for i in range(len(ans)):
         # print out the records based on the requirement
         print("%i. %s\t%s " % (len(ans)-i, ans[i].pkg_name, ans[i].freq))
 
