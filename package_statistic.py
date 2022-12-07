@@ -7,7 +7,7 @@ import gzip
 from collections import defaultdict
 from heapq import nlargest
 
-contents_dir = './contents'  # The dictionary stores the Contents indices files
+contents_dir = './contents'  # The directory stores the Contents indices files
 # Url of the Debian mirror
 mirror_url = "http://ftp.uk.debian.org/debian/dists/stable/main/"
 architectures_set = set(['amd64', 'arm64', 'armel', 'armhf',
@@ -61,7 +61,7 @@ def download_content(architecture):
 
 def deprecated_package_name(pkg_name):
     # deprecated package name including $AREA
-    return True if len(pkg_name.split('/')) > 2 or pkg_name.upper() == "LOCATION" else False
+    return True if len(pkg_name.split('/')) > 2 or pkg_name == "LOCATION" else False
 
 
 def package_counter(content_path):
@@ -99,6 +99,8 @@ def print_top_package(pkg_freq, size=10):
                    for pkg_name, freq in pkg_freq.items()])  # Use heap to get the top <size> files
     max_len = str(max(len(pkg.pkg_name)
                   for pkg in ans)+1)  # for output alignment
+    print("%s\t%s " %
+          (format("   package name", "<"+max_len), "number of files"))
     for i in range(len(ans)):
         # print out the records based on the requirement
         print("%i. %s\t%s " %
