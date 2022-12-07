@@ -95,9 +95,12 @@ def print_top_package(pkg_freq, size=10):
     '''
     ans = nlargest(size, [Package_Frequency(pkg_name, freq)
                    for pkg_name, freq in pkg_freq.items()])  # Use heap to get the top <size> files
+    max_len = str(max(len(pkg.pkg_name)
+                  for pkg in ans)+1)  # for output alignment
     for i in range(len(ans)):
         # print out the records based on the requirement
-        print("%i. %s\t%s " % (len(ans)-i, ans[i].pkg_name, ans[i].freq))
+        print("%i. %s\t%s " %
+              (i+1, format(ans[i].pkg_name, "<"+max_len), ans[i].freq))
 
 
 if __name__ == '__main__':
