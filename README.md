@@ -64,6 +64,6 @@ I firstly divide the process into 4 steps, Preprocess, Download, Count and Outpu
 3. Print out the result as the required format.
 
 ## Time I spend
-Basic worflow: 30-45 mins
-Optimization & fixing details: ~30 mins
-Comments & Document: ~60 mins
+Basic worflow: 30-45 mins  
+Optimization & fixing details: ~30 mins  
+Comments & Document: ~60 mins  
