@@ -3,7 +3,7 @@ import sys
 import urllib.request
 import gzip
 from collections import defaultdict
-from heapq import heappop, heappush, nlargest
+from heapq import nlargest
 
 contents_dir = './contents'  # The dictionary stores the Contents indices files
 # Url of the Debian mirror
@@ -57,8 +57,8 @@ def download_content(architecture):
 
 
 def deprecated_package_name(pkg_name):
-    # TODO deprecated the whole pkg or only the area?
-    return True if len(pkg_name.split('/')) > 2 else False
+    # deprecated package name including $AREA
+    return True if len(pkg_name.split('/')) > 2 or pkg_name.upper() == "LOCATION" else False
 
 
 def package_counter(content_path):
