@@ -35,6 +35,7 @@ def download_content(architecture):
     '''
     if architecture not in architectures_set:
         print("Error: %s is not a valid architecture." % architecture)
+        print("Valid architectures: ", list(architectures_set))
         return None
     # the name of the Contents indices file
     content_name = 'Contents-%s' % (architecture)
